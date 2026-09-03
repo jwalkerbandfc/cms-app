@@ -11,6 +11,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './public/index.html',
+        auth: './src/pages/auth.html',
         admin: './src/pages/admin.html',
         view: './src/pages/view.html'
       }
@@ -22,6 +23,6 @@ export default defineConfig({
     cors: true
   },
   optimizeDeps: {
-    include: ['@supabase/supabase-js', 'tiptap', 'sortablejs']
+    include: ['@supabase/supabase-js', 'sortablejs']
   }
 });

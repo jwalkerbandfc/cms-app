@@ -184,7 +184,7 @@ function setupLogoutButton() {
  */
 function redirectToLogin() {
   // For now, redirect to home (would implement auth form in real app)
-  window.location.href = '/';
+  window.location.href = '/auth.html';
 }
 
 /**

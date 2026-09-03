@@ -1,0 +1,84 @@
+name = "cms-app"
+main = "src/main.js"
+type = "javascript"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = "."
+watch_paths = ["src/**/*.js", "src/**/*.css", "public/**/*"]
+
+# Environment configuration
+[env.production]
+name = "cms-app-prod"
+routes = [
+  { pattern = "cms.example.com/*", zone_name = "example.com" }
+]
+
+[env.staging]
+name = "cms-app-staging"
+routes = [
+  { pattern = "cms-staging.example.com/*", zone_name = "example.com" }
+]
+
+# Triggers and functions (optional - for serverless backend)
+[[triggers.crons]]
+cron = "0 0 * * *"  # Daily backup at midnight
+
+# Compatibility flags for Workers runtime
+compatibility_date = "2024-01-15"
+compatibility_flags = [
+  "nodejs_compat"
+]
+
+# Bindings - Environment variables
+[vars]
+VITE_APP_NAME = "CMS App"
+VITE_DEPLOY_TARGET = "cloudflare"
+
+# Cloudflare Pages specific
+[site]
+bucket = "./dist"
+
+# KV Namespace bindings (optional - for caching)
+[[kv_namespaces]]
+binding = "CACHE"
+id = "your-kv-namespace-id"
+preview_id = "your-kv-namespace-preview-id"
+
+# D1 Database binding (optional - if using D1)
+[[d1_databases]]
+binding = "DB"
+database_name = "cms-db"
+database_id = "your-database-id"
+
+# Assets binding (for serving static files)
+[assets]
+directory = "dist"
+binding = "ASSETS"
+include = ["*.html", "*.css", "*.js", "*.json", "*.woff*", "*.ttf"]
+
+# Security headers
+[[unsafe.bindings]]
+name = "SECURITY_HEADERS"
+type = "javascript"
+
+# Observability
+[observability]
+enabled = true
+
+# Development server
+[dev]
+ip = "127.0.0.1"
+port = 3000
+local_protocol = "http"
+
+# Limits
+[limits]
+cpu_milliseconds = 30000
+max_request_size_mb = 100
+
+# Tail consumers (for logging)
+[[tail_consumers]]
+service = "cms-analytics"
+binding = "ANALYTICS"

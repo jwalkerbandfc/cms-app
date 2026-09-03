@@ -10,7 +10,7 @@
 /* Canvas */
 .canvas {
   flex: 1;
-  overflow-y-auto;
+  overflow-y: auto;
   padding: 1.5rem;
 }
 

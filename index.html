@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS - Content Management System</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <div class="hero">
+    <div class="text-center text-white px-4">
+      <h1 class="text-6xl font-bold mb-6">CMS</h1>
+      <p class="text-2xl mb-4 opacity-90">Lightweight Content Management System</p>
+      <p class="text-lg mb-8 opacity-80">Build and manage pages with an intuitive drag-and-drop editor</p>
+      
+      <div class="flex gap-4 justify-center flex-wrap">
+        <a href="/admin.html" class="px-8 py-3 bg-white text-blue-600 rounded-lg font-bold hover:bg-blue-50 transition">
+          Admin Panel
+        </a>
+        <a href="/src/pages/view.html" class="px-8 py-3 border-2 border-white text-white rounded-lg font-bold hover:bg-white/10 transition">
+          View Pages
+        </a>
+      </div>
+
+      <div class="mt-12 text-sm opacity-75">
+        <p>Powered by Supabase • Built with Vanilla JS • Deployed on Cloudflare Pages</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

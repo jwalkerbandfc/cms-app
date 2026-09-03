@@ -119,10 +119,11 @@ export class TextBlock {
       case 'underline':
         formatted = `<u>${selected}</u>`;
         break;
-      case 'link':
+     case 'link': {
         const url = prompt('Enter URL:');
         formatted = `<a href="${url}">${selected}</a>`;
         break;
+      }
       case 'heading':
         formatted = `<h2>${selected}</h2>`;
         break;

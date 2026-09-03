@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Login</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+<body class="bg-gradient-to-br from-blue-600 to-purple-700 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-2xl p-8 w-full max-w-md">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold text-blue-600">CMS</h1>
+      <p class="text-gray-600 mt-2">Content Management System</p>
+    </div>
+
+    <!-- Auth Container -->
+    <div id="auth-container">
+      <!-- Login Form (default) -->
+      <div id="login-form" class="space-y-4">
+        <h2 class="text-2xl font-bold text-gray-800">Login</h2>
+        <p class="text-gray-600 text-sm">Enter your email and password to access the editor</p>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input 
+            type="email" 
+            id="login-email" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input 
+            type="password" 
+            id="login-password" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button 
+          id="login-btn" 
+          class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+        >
+          Login
+        </button>
+
+        <div class="text-center">
+          <p class="text-gray-600 text-sm">
+            Don't have an account? 
+            <button 
+              id="show-signup-btn" 
+              class="text-blue-600 font-semibold hover:underline"
+            >
+              Create one
+            </button>
+          </p>
+        </div>
+
+        <div id="login-error" class="hidden p-3 bg-red-100 text-red-700 rounded-lg text-sm"></div>
+      </div>
+
+      <!-- Signup Form (hidden) -->
+      <div id="signup-form" class="space-y-4 hidden">
+        <h2 class="text-2xl font-bold text-gray-800">Create Account</h2>
+        <p class="text-gray-600 text-sm">Sign up to start managing your content</p>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input 
+            type="email" 
+            id="signup-email" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input 
+            type="password" 
+            id="signup-password" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+          <input 
+            type="password" 
+            id="signup-password-confirm" 
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <button 
+          id="signup-btn" 
+          class="w-full py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+        >
+          Create Account
+        </button>
+
+        <div class="text-center">
+          <p class="text-gray-600 text-sm">
+            Already have an account? 
+            <button 
+              id="show-login-btn" 
+              class="text-blue-600 font-semibold hover:underline"
+            >
+              Login
+            </button>
+          </p>
+        </div>
+
+        <div id="signup-error" class="hidden p-3 bg-red-100 text-red-700 rounded-lg text-sm"></div>
+      </div>
+    </div>
+
+    <!-- Info Box -->
+    <div class="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+      <p class="text-sm text-gray-700">
+        <strong>Demo:</strong> This is a basic login page. In production, connect to your Supabase Auth.
+      </p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { signUp, signIn } from '../lib/supabaseClient.js';
+
+    // Form elements
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const showSignupBtn = document.getElementById('show-signup-btn');
+    const showLoginBtn = document.getElementById('show-login-btn');
+    const loginBtn = document.getElementById('login-btn');
+    const signupBtn = document.getElementById('signup-btn');
+    const loginError = document.getElementById('login-error');
+    const signupError = document.getElementById('signup-error');
+
+    // Toggle forms
+    showSignupBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      loginForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+      loginError.classList.add('hidden');
+    });
+
+    showLoginBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      signupForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+      signupError.classList.add('hidden');
+    });
+
+    // Handle login
+    loginBtn.addEventListener('click', async () => {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+
+      if (!email || !password) {
+        showError(loginError, 'Please enter email and password');
+        return;
+      }
+
+      loginBtn.disabled = true;
+      loginBtn.textContent = 'Logging in...';
+      loginError.classList.add('hidden');
+
+      try {
+        const { error } = await signIn(email, password);
+        if (error) {
+          showError(loginError, error.message);
+        } else {
+          // Success - redirect to admin
+          window.location.href = '/src/pages/admin.html';
+        }
+      } catch (error) {
+        showError(loginError, error.message);
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.textContent = 'Login';
+      }
+    });
+
+    // Handle signup
+    signupBtn.addEventListener('click', async () => {
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const passwordConfirm = document.getElementById('signup-password-confirm').value;
+
+      if (!email || !password || !passwordConfirm) {
+        showError(signupError, 'Please fill in all fields');
+        return;
+      }
+
+      if (password !== passwordConfirm) {
+        showError(signupError, 'Passwords do not match');
+        return;
+      }
+
+      if (password.length < 6) {
+        showError(signupError, 'Password must be at least 6 characters');
+        return;
+      }
+
+      signupBtn.disabled = true;
+      signupBtn.textContent = 'Creating account...';
+      signupError.classList.add('hidden');
+
+      try {
+        const { error } = await signUp(email, password);
+        if (error) {
+          showError(signupError, error.message);
+        } else {
+          showError(signupError, 'Account created! Please login.');
+          setTimeout(() => {
+            signupForm.classList.add('hidden');
+            loginForm.classList.remove('hidden');
+            document.getElementById('login-email').value = email;
+          }, 2000);
+        }
+      } catch (error) {
+        showError(signupError, error.message);
+      } finally {
+        signupBtn.disabled = false;
+        signupBtn.textContent = 'Create Account';
+      }
+    });
+
+    // Enter key for login
+    document.getElementById('login-password').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') loginBtn.click();
+    });
+
+    document.getElementById('signup-password-confirm').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') signupBtn.click();
+    });
+
+    // Show error
+    function showError(element, message) {
+      element.textContent = message;
+      element.classList.remove('hidden');
+    }
+  </script>
+</body>
+</html>

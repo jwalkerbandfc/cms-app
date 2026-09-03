@@ -10,10 +10,10 @@ export default defineConfig({
     target: 'es2020',
     rollupOptions: {
       input: {
-        main: './public/index.html',
-        auth: './src/pages/auth.html',
-        admin: './src/pages/admin.html',
-        view: './src/pages/view.html'
+        main: 'public/index.html',
+        auth: 'src/pages/auth.html',
+        admin: 'src/pages/admin.html',
+        view: 'src/pages/view.html'
       }
     }
   },

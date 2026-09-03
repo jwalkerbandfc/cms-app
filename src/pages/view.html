@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Page</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body class="bg-white">
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-200 px-4 py-4 sticky top-0 z-10">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-lg font-bold text-blue-600">← Back</a>
+      <a href="/admin.html" class="text-sm text-gray-600 hover:text-gray-900">Admin Panel</a>
+    </div>
+  </nav>
+
+  <!-- Page Container -->
+  <div id="page-container"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <script type="module" src="../main.js" data-page="view"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "name": "cms-app",
+  "version": "1.0.0",
+  "description": "Lightweight, modular CMS for static web deployment backed by Supabase",
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint src --fix"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "tiptap": "^2.1.0",
+    "@tiptap/pm": "^2.1.0",
+    "@tiptap/extension-image": "^2.1.0",
+    "@tiptap/extension-link": "^2.1.0",
+    "@tiptap/extension-code-block": "^2.1.0",
+    "@tiptap/extension-bold": "^2.1.0",
+    "@tiptap/extension-italic": "^2.1.0",
+    "@tiptap/extension-underline": "^2.1.0",
+    "@tiptap/extension-heading": "^2.1.0",
+    "@tiptap/extension-paragraph": "^2.1.0",
+    "@tiptap/extension-doc": "^2.1.0",
+    "@tiptap/extension-text": "^2.1.0",
+    "@tiptap/starter-kit": "^2.1.0",
+    "sortablejs": "^1.15.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.0",
+    "tailwindcss": "^3.3.0",
+    "postcss": "^8.4.28",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^8.48.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

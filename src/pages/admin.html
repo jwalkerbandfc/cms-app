@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Admin - Editor</title>
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <link rel="stylesheet" href="../styles/main.css">
+</head>
+<body class="bg-gray-100">
+  <!-- Navigation -->
+  <nav class="bg-white border-b border-gray-200 px-4 py-3 flex justify-between items-center sticky top-0 z-10">
+    <div class="flex items-center gap-4">
+      <a href="/admin.html" class="text-xl font-bold text-blue-600">CMS</a>
+      <span id="page-title" class="text-lg font-medium text-gray-700"></span>
+    </div>
+    <div class="flex gap-3">
+      <span id="loading-indicator" class="text-sm text-gray-500 hidden">Saving...</span>
+      <button id="logout-btn" class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded transition">
+        Logout
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Layout -->
+  <div class="editor-container">
+    <!-- Sidebar -->
+    <div id="sidebar-container"></div>
+
+    <!-- Canvas -->
+    <div id="canvas-container" class="flex-1 overflow-y-auto bg-white"></div>
+  </div>
+
+  <!-- Modal Container -->
+  <div id="modal-container"></div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <script type="module" src="../main.js" data-page="admin"></script>
+</body>
+</html>
